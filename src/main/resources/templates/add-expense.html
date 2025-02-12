@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Expense</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #34495e;
+      --accent-color: #3498db;
+      --success-color: #2ecc71;
+      --danger-color: #e74c3c;
+      --input-border: #e9ecef;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      color: var(--primary-color);
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background-color: var(--primary-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .form-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-color);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/expenses">
+      <i class="fas fa-wallet me-2"></i>
+      Expense Manager
+    </a>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/expenses">
+          <i class="fas fa-list me-1"></i> Back to List
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="display-4">
+      <i class="fas fa-plus-circle me-3"></i>
+      Add Expense
+    </h1>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="container animate-fade-in">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="form-card">
+        <form th:action="@{/add-expense}" th:object="${expense}" method="post">
+
+
+
+
+
+
+          <!-- Category Field -->
+<!--          <div class="mb-4">-->
+<!--            <label for="category" class="form-label">-->
+<!--              <i class="fas fa-tag"></i>-->
+<!--              Category-->
+<!--            </label>-->
+<!--            <input type="text" class="form-control form-control-lg" id="category" th:field="*{category}" required>-->
+<!--          </div>-->
+
+          <!-- Category Field -->
+<!--          <div class="mb-4">-->
+<!--            <label for="category" class="form-label">-->
+<!--              <i class="fas fa-tag"></i>-->
+<!--              Category-->
+<!--            </label>-->
+<!--            <select class="form-control form-control-lg" id="category" name="category" th:field="*{category}" required>-->
+<!--              <option th:each="category : ${T(com.j2ee.smartexpensetracker.enums.Category).values()}"-->
+<!--                      th:value="${category.name()}"-->
+<!--                      th:text="${category.displayName}"></option>-->
+<!--            </select>-->
+<!--          </div>-->
+
+          <!-- Category Field -->
+          <div class="mb-4">
+            <label for="category" class="form-label">
+              <i class="fas fa-tag"></i>
+              Category
+            </label>
+            <select class="form-control form-control-lg" id="category" name="category" th:field="*{category}" required>
+              <option value="" th:selected="${category == null}" >Select</option>
+              <option th:each="category : ${T(com.j2ee.smartexpensetracker.enums.Category).values()}"
+                      th:value="${category.name()}"
+                      th:text="${category.displayName}"></option>
+            </select>
+          </div>
+
+
+
+          <!-- Amount Field -->
+          <div class="mb-4">
+            <label for="amount" class="form-label">
+              <i class="fas fa-dollar-sign"></i>
+              Amount
+            </label>
+            <input type="number" step="0.01" class="form-control form-control-lg" id="amount" th:field="*{amount}" required>
+          </div>
+
+          <!-- Description Field -->
+          <div class="mb-4">
+            <label for="description" class="form-label">
+              <i class="fas fa-align-left"></i>
+              Description
+            </label>
+            <textarea class="form-control form-control-lg" id="description" th:field="*{description}" rows="3" required></textarea>
+          </div>
+
+          <!-- Date Field -->
+          <div class="mb-4">
+            <label for="date" class="form-label">
+              <i class="fas fa-calendar"></i>
+              Date
+            </label>
+            <input type="date" class="form-control form-control-lg" id="date" th:field="*{date}" required>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
+            <a href="/expenses" class="btn btn-secondary me-md-2">
+              <i class="fas fa-times me-2"></i>
+              Cancel
+            </a>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save me-2"></i>
+              Add Expense
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Add Expense</title>-->
+<!--  &lt;!&ndash; Bootstrap CSS (optional for styling) &ndash;&gt;-->
+<!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container mt-5">-->
+<!--  <h1>Add New Expense</h1>-->
+<!--  <form th:action="@{/add-expense}" th:object="${expense}" method="post">-->
+<!--    &lt;!&ndash; Category Field &ndash;&gt;-->
+<!--    <div class="mb-3">-->
+<!--      <label for="category" class="form-label">Category</label>-->
+<!--      <input type="text" class="form-control" id="category" th:field="*{category}" required>-->
+<!--      <div th:if="${#fields.hasErrors('category')}" class="text-danger">-->
+<!--        Category is required.-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Amount Field &ndash;&gt;-->
+<!--    <div class="mb-3">-->
+<!--      <label for="amount" class="form-label">Amount</label>-->
+<!--      <input type="number" step="0.01" class="form-control" id="amount" th:field="*{amount}" required>-->
+<!--      <div th:if="${#fields.hasErrors('amount')}" class="text-danger">-->
+<!--        Amount must be a valid number.-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Description Field &ndash;&gt;-->
+<!--    <div class="mb-3">-->
+<!--      <label for="description" class="form-label">Description</label>-->
+<!--      <textarea class="form-control" id="description" th:field="*{description}" rows="3" required></textarea>-->
+<!--      <div th:if="${#fields.hasErrors('description')}" class="text-danger">-->
+<!--        Description is required.-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Date Field &ndash;&gt;-->
+<!--    <div class="mb-3">-->
+<!--      <label for="date" class="form-label">Date</label>-->
+<!--      <input type="date" class="form-control" id="date" th:field="*{date}" required>-->
+<!--      <div th:if="${#fields.hasErrors('date')}" class="text-danger">-->
+<!--        Date is required.-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Submit Button &ndash;&gt;-->
+<!--    <button type="submit" class="btn btn-primary">Add Expense</button>-->
+<!--    <a href="/expenses" class="btn btn-secondary">Cancel</a>-->
+<!--  </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

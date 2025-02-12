@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:8.0.5-rc1-noble
+    container_name: mongo_db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: Expense
+    volumes:
+      - mongo_data:/data/db
+
+  app:
+    build: .
+    container_name: smart_expense_tracker
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+    environment:
+      SPRING_APPLICATION_NAME: SmartExpenseTracker
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/Expense
+      SERVER_PORT: 8080
+      SPRING_THYMELEAF_PREFIX: classpath:/templates/
+      SPRING_THYMELEAF_SUFFIX: .html
+
+volumes:
+  mongo_data:
